@@ -4,7 +4,6 @@ import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { QUERY_USER_DATA,QUERY_WHITELISTED_COLLECTIONS } from "./queries";
 import { init, useQuery } from "@airstack/airstack-react";
 
-
 init("17dd214bb19984a7c87007735b791c29e");
 
 

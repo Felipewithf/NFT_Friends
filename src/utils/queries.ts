@@ -15,22 +15,6 @@ query findtokenBalanceFromOwner($_in: [Identity!], $_in1: [Address!]) {
 }
 `;
 
-// export const QUERY_WHITELISTED_COLLECTIONS = `
-// query findUserData($_in: [Identity!], $_in1: [Address!], $limit: Int) {
-//     Ethereum: TokenBalances(
-//       input: {filter: {owner: {_in: $_in}, tokenAddress: {_in: $_in1}}, blockchain: ethereum, limit: $limit}
-//     ) {
-//       TokenBalance {
-//         token {
-//           address
-//           name
-//         }
-//       }
-//     }
-//   }
-// `;
-
-
 export const QUERY_USER_DATA = `
 query FindFCUserData($fid: String!) {
     Socials(
@@ -46,3 +30,32 @@ query FindFCUserData($fid: String!) {
     }
   }
 ` 
+
+export const QUERY_COLLECTORS_FC = `
+query TokenSnapshotOfCollectors($_eq: Address, $_eq1: SocialDappName) {
+  TokenBalances(
+    input: {filter: {tokenAddress: {_eq: $_eq}}, blockchain: ethereum, limit: 200}
+  ) {
+    TokenBalance {
+      owner {
+        identity
+        socials(input: {filter: {dappName: {_eq: farcaster}}}) {
+          profileName
+          userId
+          profileImage
+        }
+      }
+      tokenId
+      tokenNfts {
+        metaData {
+          image
+        }
+      }
+    }
+    pageInfo {
+      nextCursor
+      prevCursor
+    }
+  }
+}
+`;

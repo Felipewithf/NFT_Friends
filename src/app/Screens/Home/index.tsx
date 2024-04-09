@@ -19,41 +19,6 @@ import { init, useQuery } from "@airstack/airstack-react";
 
 init("17dd214bb19984a7c87007735b791c29e");
 
-// const UserCollectionComponent = () => {
-//   const [user] = useLocalStorage<UserInfo>("user");
-//   const variables = { 
-//     fid: user.fid
-//    };
- 
-
-//   const { data, loading, error } = useQuery(QUERY_USER_DATA, variables, {cache: false });
-
-
-//   if (loading) {
-//     return <p>Loading...</p>;
-//   }
-
-//   if (error) {
-//     return <p>Error: {error.message}</p>;
-//   }
-
-//   const userAssociatedAddresses = data?.Socials?.Social[0]?.userAssociatedAddresses;
-
-//   if (!userAssociatedAddresses || userAssociatedAddresses.length === 0) {
-//     return <p>No user associated addresses found.</p>;
-//   }
-//   console.log(user.addys);
-//   return (
-//     <div>
-//       {userAssociatedAddresses.map((address, index) => (
-//         <p key={index}>{address}</p>
-//       ))}
-//       <div><p>{user.addys}</p></div>
-//     </div>
-//   );
-// };
-
-
 
 
 const Home = () => {
@@ -136,11 +101,8 @@ const Home = () => {
 const CollectionsComponent = () => {
   const [user] = useLocalStorage<UserInfo>("user");
   const [collections, setCollections] = useState<any[]>([]);
-  // const variables = {
-  //   Identity: [user.addys], // This will be updated with assocAddys
-  //   Address: wlc.map((item) => item.addy), // Hardcoded array of collections
-  // };
-
+  const [recomenededCollectors, setRecomenededCollectors] = useState<any[]>([]);
+  
     //get the whitelistd addresses and pass their address only
     const arrayOfWhitelistedAddress = wlc.map((item) => item.addy);
     const variables = {
@@ -179,6 +141,15 @@ const CollectionsComponent = () => {
     }
   }, [data]);
 
+  const getCollectors = (address: string) => {
+    const collectorsData = wlc.find(item => item.addy === address);
+    if (collectorsData) {
+      const snapshotData = collectorsData.snapshot;
+      const firstNineItems = snapshotData.slice(0, 9);
+      setRecomenededCollectors(firstNineItems);
+    }
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -200,11 +171,18 @@ const CollectionsComponent = () => {
   // }, [data]);
 
   return (
+    <>
     <div>
        {collections.map((collection, index) => (
-         <p key={index}>{collection.name} - {collection.tokens.length}</p>
+         <p key={index} onClick={() => getCollectors(collection.address)}>{collection.name} - {collection.tokens.length}</p>
       ))}
     </div>
+    <div>
+        {recomenededCollectors.map((collector, index) => (
+          <p key={index}>{collector.fc_name} - {collector.nfts.length}</p>
+        ))}
+      </div>
+    </>
   );
 };
 

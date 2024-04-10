@@ -7,14 +7,6 @@ import { init, useQuery } from "@airstack/airstack-react";
 init("17dd214bb19984a7c87007735b791c29e");
 
 
-export const welcomeMessages = [
-  "Find NFT Friends",
-];
-
-export const getMessage = (messagesList: string[]) => {
-  return messagesList[Math.floor(Math.random() * messagesList.length)];
-};
-
 export const verifyUser = async (signerUuid: string, fid: string) => {
   let _isVerifiedUser = false;
   try {

@@ -14,11 +14,11 @@
   background-color: transparent;
   border: 1px solid white;
   border-radius: 5px;
-  color: white;
+  color: #262229;
   outline: none;
 
   &::placeholder {
-    color: white;
+    color: #262229;
     opacity: 0.7; // Adjust as needed
   }
 }

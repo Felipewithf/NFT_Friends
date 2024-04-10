@@ -58,20 +58,20 @@ const Home = () => {
 
   return (
     <ScreenLayout>
-      <main className="flex flex-col flex-grow justify-center items-center">
+      <main className="flex flex-col flex-grow justify-start items-center">
         {displayName && pfp ? (
           <>
-          <p>FID={user.fid}</p>
-          {/*<UserCollectionComponent />  Render UserDataComponent */}
-          <CollectionsComponent />
+          
             <p className="text-3xl">
               Hello{" "}
               {displayName && (
                 <span className="font-medium">{displayName}</span>
               )}
               ... 👋
-            </p>
-            <div className={styles.inputContainer}>
+            Lets find you some friends</p>
+          <div className="flex justify-start pt-5" id="shellsHolder">
+            <CollectionsComponent />
+            {/* <div className={styles.inputContainer}>
               <Image
                 src={pfp}
                 width={40}
@@ -87,7 +87,8 @@ const Home = () => {
                 rows={5}
               />
             </div>
-            <Button onClick={handlePublishCast} title="Cast" />
+            <Button onClick={handlePublishCast} title="Cast" /> */}
+          </div>
           </>
         ) : (
           <p>Loading...</p>
@@ -97,17 +98,18 @@ const Home = () => {
   );
 };
 
-// this is not working i need to pass the assocAddress somehow
+
 const CollectionsComponent = () => {
   const [user] = useLocalStorage<UserInfo>("user");
   const [collections, setCollections] = useState<any[]>([]);
   const [recomenededCollectors, setRecomenededCollectors] = useState<any[]>([]);
-  
+  const [activeCollectionIndex, setActiveCollectionIndex] = useState(-1); // Initialize with -1 indicating no active item
+
     //get the whitelistd addresses and pass their address only
     const arrayOfWhitelistedAddress = wlc.map((item) => item.addy);
     const variables = {
-      _in: [user.addys], // Corrected from Indentity to _in
-      _in1: arrayOfWhitelistedAddress, // Corrected from Address to _in1
+      _in: [user.addys], // need to make this an array of multiple address
+      _in1: arrayOfWhitelistedAddress, // show only collections that we have whitelisted
     };
 
   const { data, loading, error } = useQuery(
@@ -122,7 +124,7 @@ const CollectionsComponent = () => {
     if (data && data.Ethereum && data.Ethereum.TokenBalance)  {
       const collections = data.Ethereum.TokenBalance.reduce((acc, tokenBalance) => {
         const { token, tokenId } = tokenBalance;
-        const existingCollection = acc.find(collection => collection.address === token.address);
+        const existingCollection = acc.find(collection => collection.address.toLowerCase() === token.address.toLowerCase());
         if (existingCollection) {
           existingCollection.tokens.push(tokenId);
         } else {
@@ -141,12 +143,20 @@ const CollectionsComponent = () => {
     }
   }, [data]);
 
-  const getCollectors = (address: string) => {
-    const collectorsData = wlc.find(item => item.addy === address);
+  const getCollectors = (address: string, index: number) => {
+
+    setActiveCollectionIndex(index === activeCollectionIndex ? -1 : index);
+
+
+    const collectorsData = wlc.find(item => item.addy.toLowerCase() === address.toLowerCase());
+
     if (collectorsData) {
       const snapshotData = collectorsData.snapshot;
       const firstNineItems = snapshotData.slice(0, 9);
+      console.log(firstNineItems);
       setRecomenededCollectors(firstNineItems);
+    } else{
+      return <p>Collectors Not Found..</p>;
     }
   };
 
@@ -172,15 +182,30 @@ const CollectionsComponent = () => {
 
   return (
     <>
-    <div>
+    <div id="collection-Shell">
+      <ul className="collectionList">
        {collections.map((collection, index) => (
-         <p key={index} onClick={() => getCollectors(collection.address)}>{collection.name} - {collection.tokens.length}</p>
+         <li key={index} className={`collectionItem ${index === activeCollectionIndex ? 'active' : ''}`}  onClick={() => getCollectors(collection.address,index)}>{collection.name}</li>
       ))}
+      </ul>
     </div>
-    <div>
+    <div id="friendGrid-Shell" className="flex justify-center items-center">
+      {recomenededCollectors.length > 0 ? (
+        <div className="friendGridlList grid grid-cols-3 gap-0">
         {recomenededCollectors.map((collector, index) => (
-          <p key={index}>{collector.fc_name} - {collector.nfts.length}</p>
+          <div key={index} className="friendGridItem">
+            <img src={collector.nfts[0].tokenImage}/>
+            <div className="overlay"> 
+              <p className="overlayName font-medium">{collector.fc_name}
+              </p>
+              </div>
+            </div>
         ))}
+        </div>
+      ):(
+        <p className="text-3xl">Loading...</p>
+      )}
+        
       </div>
     </>
   );

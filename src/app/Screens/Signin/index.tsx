@@ -1,5 +1,4 @@
 import ScreenLayout from "../layout";
-import { getMessage, welcomeMessages } from "@/utils/helpers";
 import { useCallback, useEffect, useState } from "react";
 import { useApp } from "@/Context/AppContext";
 import useLocalStorage from "@/hooks/use-local-storage-state";
@@ -96,7 +95,7 @@ const Signin = () => {
         data-client_id={client_id}
         data-neynar_login_url={neynar_login_url}
         data-success-callback="onSignInSuccess"
-        data-theme="light"
+        data-theme="dark"
         data-variant="farcaster"
         data-logo_size="30px"
       ></div>
@@ -107,9 +106,11 @@ const Signin = () => {
     <ScreenLayout>
       <main className="flex-grow flex flex-col items-center justify-center">
         <div className="mx-5 flex flex-col items-center justify-center">
-          <h2 className="text-4xl font-extralight mb-4">
-            {isClient && getMessage(welcomeMessages)}
-          </h2>
+        <h3 className="text-4xl font-extralight mb-4">
+            {isClient && ("Find your friends in Farcaster")}
+          </h3>
+          <img src="hero.png" width={600}/>
+          
 
           {getButton()}
           

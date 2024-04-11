@@ -61,7 +61,7 @@ const Signin = () => {
 
         const response = await axios.get(`/api/user/${data.fid}`);
         const userData = response.data;
-        console.log(`this is the userData from response: ${userData}`)
+        console.log(`this is the userData from response: ${{...userData}}`)
         setUser({
           signerUuid: data.signer_uuid,
           fid: data.fid,

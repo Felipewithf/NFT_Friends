@@ -105,6 +105,21 @@ const CollectionsComponent = () => {
   const [recomenededCollectors, setRecomenededCollectors] = useState<any[]>([]);
   const [activeCollectionIndex, setActiveCollectionIndex] = useState(-1); // Initialize with -1 indicating no active item
 
+  interface Collection {
+    address: string;
+    name: string;
+    tokens: string[]; // Assuming tokens are string identifiers
+  }
+
+  interface TokenBalance {
+    token: {
+      address: string;
+      name: string;
+    };
+    tokenId: string;
+  }
+  
+  
     //get the whitelisted addresses and pass their address only
     const arrayOfWhitelistedAddress = wlc.map((item) => item.addy.toLowerCase());
     const variables = {
@@ -122,7 +137,7 @@ const CollectionsComponent = () => {
   useEffect(() => {
     console.log(data);
     if (data && data.Ethereum && data.Ethereum.TokenBalance)  {
-      const collections = data.Ethereum.TokenBalance.reduce((acc, tokenBalance) => {
+      const collections = data.Ethereum.TokenBalance.reduce((acc: Collection[], tokenBalance: TokenBalance) => {
         const { token, tokenId } = tokenBalance;
         const existingCollection = acc.find(collection => collection.address.toLowerCase() === token.address.toLowerCase());
         console.log(existingCollection);

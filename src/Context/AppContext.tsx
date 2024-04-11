@@ -101,9 +101,9 @@ export const AppProvider: FC<Props> = ({ children }) => {
       //     "activeStatus": "inactive",
       //     "powerBadge": false
       // }
-          console.log(`data user verification: ${data.user.verifications}`);
+          //console.log(`data user verification: ${data.user.verifications}`);
           const addyArray = data.user.verifications
-          console.log(`saved into addyArray: ${addyArray}`);
+          //console.log(`saved into addyArray: ${addyArray}`);
         setDisplayName(data.user.displayName);
         setPfp(data.user.pfp.url);
         setAddys(addyArray);
@@ -139,7 +139,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
       if (signerUuid && fid) {
         const verifiedUser = await verifyUser(signerUuid, fid);
         if (verifiedUser) {
-          console.log(`just before passing this to localstorage: ${addys}`)
+          //console.log(`just before passing this to localstorage: ${addys}`)
           setUser({ signerUuid, fid, addys: addys ?? [] });
           setScreen(ScreenState.Home);
         } else {

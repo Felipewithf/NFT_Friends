@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import { useApp } from "@/Context/AppContext";
 import { useCallback, useEffect, useState } from "react";
-import { QUERY_USER_DATA, QUERY_WHITELISTED_COLLECTIONS} from "@/utils/queries";
+import { QUERY_COLLECTORS_FC, QUERY_USER_DATA, QUERY_WHITELISTED_COLLECTIONS, QUERY_WHO_I_FOLLOW} from "@/utils/queries";
 import { wlc } from "@/utils/whiteListedCollections"
 
 import { init, useQuery } from "@airstack/airstack-react";
@@ -104,6 +104,7 @@ const CollectionsComponent = () => {
   const [collections, setCollections] = useState<any[]>([]);
   const [recomenededCollectors, setRecomenededCollectors] = useState<any[]>([]);
   const [activeCollectionIndex, setActiveCollectionIndex] = useState(-1); // Initialize with -1 indicating no active item
+  const [followingFIDs, setFollowingFIDs ] = useState<any[]>([]);
 
   interface Collection {
     address: string;
@@ -120,14 +121,16 @@ const CollectionsComponent = () => {
   }
   
   
-    //get the whitelisted addresses and pass their address only
+    //get the whitelisted collections and pass their address only in an array
     const arrayOfWhitelistedAddress = wlc.map((item) => item.addy.toLowerCase());
+   
+    //past the filter varibles
     const variables = {
-      _in: user.addys, // need to make this an array of multiple address
+      _in: user.addys,
       _in1: arrayOfWhitelistedAddress, // show only collections that we have whitelisted
     };
 
-    console.log(`Variables before passing the querry: ${variables._in}`);
+    //console.log(`Variables before passing the querry: ${variables._in}`);
   const { data, loading, error } = useQuery(
     QUERY_WHITELISTED_COLLECTIONS,
     variables,
@@ -135,14 +138,24 @@ const CollectionsComponent = () => {
       cache: false,
     }
   );
-  console.log(`data from query: ${data}`);
+
+  const followingVariables ={
+    _eq: `fc_fid:${user.fid}`,
+    cursor:""
+  }  
+
+  const {data: followingData, loading: followingLoading, error: followingError } = useQuery(QUERY_WHO_I_FOLLOW, followingVariables,{
+    cache: false,
+  })
+
+  //console.log(`data from query: ${data}`);
   useEffect(() => {
     // console.log(data);
     if (data && data.Ethereum && data.Ethereum.TokenBalance)  {
       const collections = data.Ethereum.TokenBalance.reduce((acc: Collection[], tokenBalance: TokenBalance) => {
         const { token, tokenId } = tokenBalance;
         const existingCollection = acc.find(collection => collection.address.toLowerCase() === token.address.toLowerCase());
-        console.log(existingCollection);
+        //console.log(existingCollection);
         if (existingCollection) {
           existingCollection.tokens.push(tokenId);
         } else {
@@ -152,14 +165,24 @@ const CollectionsComponent = () => {
             tokens: [tokenId]
           });
         }
-  
         return acc;
       }, []);
-  
       setCollections(collections);
-      console.log(collections)
+      //console.log(collections)
     }
-  }, [data]);
+  }, [data, followingData]);
+
+
+
+  useEffect(() => {
+    if(followingData){
+      setFollowingFIDs(followingData);
+      console.log("following data:")
+      console.log(followingData);
+    }
+  },[followingData,followingLoading]);
+
+
 
   const getCollectors = (address: string, index: number) => {
 

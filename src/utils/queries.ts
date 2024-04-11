@@ -1,4 +1,4 @@
-// Define your GraphQL query and variables
+// get the Collections that match our whitelisted collections
 export const QUERY_WHITELISTED_COLLECTIONS = `
 query findtokenBalanceFromOwner($_in: [Identity!], $_in1: [Address!]) {
   Ethereum: TokenBalances(
@@ -15,6 +15,7 @@ query findtokenBalanceFromOwner($_in: [Identity!], $_in1: [Address!]) {
 }
 `;
 
+//get the user data and user ID
 export const QUERY_USER_DATA = `
 query FindFCUserData($fid: String!) {
     Socials(
@@ -31,6 +32,24 @@ query FindFCUserData($fid: String!) {
   }
 ` 
 
+//get all the FID that I am following
+export const QUERY_WHO_I_FOLLOW = `
+query WhoIfollow($_eq: Identity, $cursor: String) {
+  SocialFollowings(
+    input: {filter: {identity: {_eq: $_eq}, dappName: {_eq: farcaster}}, blockchain: ALL, limit: 200, cursor: $cursor}
+  ) {
+    Following {
+      followingProfileId
+    }
+    pageInfo {
+      hasNextPage
+      nextCursor
+    }
+  }
+}
+`;
+
+// ----- not in use in this app, but a query for collection snapshots that works in this code
 export const QUERY_COLLECTORS_FC = `
 query TokenSnapshotOfCollectors($_eq: Address, $_eq1: SocialDappName) {
   TokenBalances(

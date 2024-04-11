@@ -54,7 +54,7 @@ const AppContext = createContext<AppContextInterface | null>(null);
 export const AppProvider: FC<Props> = ({ children }) => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Signin);
   const [displayName, setDisplayName] = useState<string | null>(null);
-  const [addys, setAddys] = useState<string[] | null>(null);
+  const [addys, setAddys] = useState<string[] | null >([]);
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
@@ -106,6 +106,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
         setPfp(data.user.pfp.url);
         setAddys([data.user.verifications[0]]);
         
+        
       } catch (err) {
         const axiosError = err as AxiosError<ErrorRes>;
         toast(axiosError.response?.data.message || "An error occurred", {
@@ -126,7 +127,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
     //     setSignerUuid(searchParams.get("signer_uuid"));
     //     setFid(searchParams.get("fid"));
     // }
-
+    console.log(addys);
     lookupUser();
   }, [lookupUser]);
 

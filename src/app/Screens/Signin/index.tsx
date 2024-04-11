@@ -47,7 +47,7 @@ const Signin = () => {
     };
   }, []);
 
-  const { setSignerUuid, setFid} = useApp();
+  const { setSignerUuid, setFid, setAddys} = useApp();
   const client_id = process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID;
   const neynar_login_url = process.env.NEXT_PUBLIC_NEYNAR_LOGIN_URL || "https://app.neynar.com/login";
 
@@ -61,16 +61,16 @@ const Signin = () => {
 
         const response = await axios.get(`/api/user/${data.fid}`);
         const userData = response.data;
-
+        console.log(`this is the userData from response: ${userData}`)
         setUser({
           signerUuid: data.signer_uuid,
           fid: data.fid,
-          addys: userData.user.verifications[0]
+          addys: userData.user.verifications
         });
         setSignerUuid(data.signer_uuid);
         setFid(data.fid);
-        
-        console.log(data);
+        setAddys(userData.user.verifications);
+  
 
       }catch (error){
         console.error('Error fetching user data:', error);

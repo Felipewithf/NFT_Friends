@@ -101,10 +101,12 @@ export const AppProvider: FC<Props> = ({ children }) => {
       //     "activeStatus": "inactive",
       //     "powerBadge": false
       // }
-
+          console.log(data.user.verifications);
+          const addyArray = data.user.verifications
+          console.log(addyArray);
         setDisplayName(data.user.displayName);
         setPfp(data.user.pfp.url);
-        setAddys([data.user.verifications[0]]);
+        setAddys(addyArray);
         
         
       } catch (err) {

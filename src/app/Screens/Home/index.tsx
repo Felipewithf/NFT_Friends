@@ -182,15 +182,15 @@ const CollectionsComponent = () => {
     const options = {
       headers: {
         'accept': 'application/json',
-        'api_key': process.env.NEYNAR_API_KEY!,
+        'api_key': process.env.NEYNAR_API_KEY,
         'content-type': 'application/json'
       },
-      body: JSON.stringify({target_fids: [fid], signer_uuid: user.signerUuid})
+      body: JSON.stringify({signer_uuid: user.signerUuid, target_fids: [fid]})
     };
-    
+    console.log({...options});
     try {
-      const response = await axios.post('https://api.neynar.com/v2/farcaster/user/follow', null, options);
-      console.log(response.data); // Assuming you're interested in the response data
+      const response = await axios.post('https://api.neynar.com/v2/farcaster/user/follow', options);
+      console.log(`response from axios call ${response.data}`); // Assuming you're interested in the response data
     } catch (error) {
       console.error(error);
     }

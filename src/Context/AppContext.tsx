@@ -72,10 +72,40 @@ export const AppProvider: FC<Props> = ({ children }) => {
         const { data } = await axios.get<{ user: User }>(
           `/api/user/${user.fid}`
         );
+
+      //   {
+      //     "fid": 314342,
+      //     "custodyAddress": "0x025b883db6a9519385e5990946b031c168a33c2e",
+      //     "username": "felipewithf.eth",
+      //     "displayName": "Felipewithf",
+      //     "pfp": {
+      //         "url": "https://i.imgur.com/Frr6mpP.jpg"
+      //     },
+      //     "profile": {
+      //         "bio": {
+      //             "text": "Designer + dev. 🏗️ Trying new and fun ideas using the blockchain ecosystem",
+      //             "mentionedProfiles": []
+      //         }
+      //     },
+      //     "followerCount": 24,
+      //     "followingCount": 102,
+      //     "verifications": [
+      //         "0xeac5781e7ca68f1c7b6ebe854901e427049d0ab5"
+      //     ],
+      //     "verifiedAddresses": {
+      //         "eth_addresses": [
+      //             "0xeac5781e7ca68f1c7b6ebe854901e427049d0ab5"
+      //         ],
+      //         "sol_addresses": []
+      //     },
+      //     "activeStatus": "inactive",
+      //     "powerBadge": false
+      // }
+
         setDisplayName(data.user.displayName);
         setPfp(data.user.pfp.url);
-        setAddys(data.user.verifications);
-
+        setAddys([data.user.verifications[0]]);
+        
       } catch (err) {
         const axiosError = err as AxiosError<ErrorRes>;
         toast(axiosError.response?.data.message || "An error occurred", {

@@ -123,9 +123,11 @@ const CollectionsComponent = () => {
     //get the whitelisted addresses and pass their address only
     const arrayOfWhitelistedAddress = wlc.map((item) => item.addy.toLowerCase());
     const variables = {
-      _in: user.addys, // need to make this an array of multiple address
+      _in: [user.addys], // need to make this an array of multiple address
       _in1: arrayOfWhitelistedAddress, // show only collections that we have whitelisted
     };
+
+    console.log(variables._in);
   const { data, loading, error } = useQuery(
     QUERY_WHITELISTED_COLLECTIONS,
     variables,

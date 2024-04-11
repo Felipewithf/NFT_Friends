@@ -54,7 +54,7 @@ const AppContext = createContext<AppContextInterface | null>(null);
 export const AppProvider: FC<Props> = ({ children }) => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Signin);
   const [displayName, setDisplayName] = useState<string | null>(null);
-  const [addys, setAddys] = useState<string | null>(null);
+  const [addys, setAddys] = useState<string[] | null>(null);
   const [pfp, setPfp] = useState<string | null>(null);
   const [signerUuid, setSignerUuid] = useState<string | null>(null);
   const [fid, setFid] = useState<string | null>(null);
@@ -74,7 +74,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
         );
         setDisplayName(data.user.displayName);
         setPfp(data.user.pfp.url);
-        setAddys(data.user.verifications[0]);
+        setAddys(data.user.verifications);
 
       } catch (err) {
         const axiosError = err as AxiosError<ErrorRes>;
@@ -108,7 +108,7 @@ export const AppProvider: FC<Props> = ({ children }) => {
         const verifiedUser = await verifyUser(signerUuid, fid);
         if (verifiedUser) {
 
-          setUser({ signerUuid, fid, addys });
+          setUser({ signerUuid, fid, addys: addys ?? [] });
           setScreen(ScreenState.Home);
         } else {
           removeUser();

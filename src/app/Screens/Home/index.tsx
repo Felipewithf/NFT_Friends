@@ -105,13 +105,12 @@ const CollectionsComponent = () => {
   const [recomenededCollectors, setRecomenededCollectors] = useState<any[]>([]);
   const [activeCollectionIndex, setActiveCollectionIndex] = useState(-1); // Initialize with -1 indicating no active item
 
-    //get the whitelistd addresses and pass their address only
-    const arrayOfWhitelistedAddress = wlc.map((item) => item.addy);
+    //get the whitelisted addresses and pass their address only
+    const arrayOfWhitelistedAddress = wlc.map((item) => item.addy.toLowerCase());
     const variables = {
       _in: [user.addys], // need to make this an array of multiple address
       _in1: arrayOfWhitelistedAddress, // show only collections that we have whitelisted
     };
-
   const { data, loading, error } = useQuery(
     QUERY_WHITELISTED_COLLECTIONS,
     variables,
@@ -119,12 +118,14 @@ const CollectionsComponent = () => {
       cache: false,
     }
   );
-
+  console.log(data);
   useEffect(() => {
+    console.log(data);
     if (data && data.Ethereum && data.Ethereum.TokenBalance)  {
       const collections = data.Ethereum.TokenBalance.reduce((acc, tokenBalance) => {
         const { token, tokenId } = tokenBalance;
         const existingCollection = acc.find(collection => collection.address.toLowerCase() === token.address.toLowerCase());
+        console.log(existingCollection);
         if (existingCollection) {
           existingCollection.tokens.push(tokenId);
         } else {
@@ -139,7 +140,7 @@ const CollectionsComponent = () => {
       }, []);
   
       setCollections(collections);
-      // console.log(collections)
+      console.log(collections)
     }
   }, [data]);
 
@@ -160,16 +161,34 @@ const CollectionsComponent = () => {
     }
   };
 
+  const followFC_user = async (fid:number) => {
+    const options = {
+      headers: {
+        'accept': 'application/json',
+        'api_key': process.env.NEYNAR_API_KEY!,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({target_fids: [fid], signer_uuid: user.signerUuid})
+    };
+    
+    try {
+      const response = await axios.post('https://api.neynar.com/v2/farcaster/user/follow', null, options);
+      console.log(response.data); // Assuming you're interested in the response data
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="text-3xl">Loading...</p>;
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p className="text-3xl">Error: {error.message}</p>;
   }
 
   if (!data) {
-    return <p>Data is empty...</p>;
+    return <p className="text-3xl">Data is empty...</p>;
   }
 
   // console.log(data);
@@ -193,7 +212,7 @@ const CollectionsComponent = () => {
       {recomenededCollectors.length > 0 ? (
         <div className="friendGridlList grid grid-cols-3 gap-0">
         {recomenededCollectors.map((collector, index) => (
-          <div key={index} className="friendGridItem">
+          <div key={index} className="friendGridItem" onClick={()=> followFC_user(collector.fid)}>
             <img src={collector.nfts[0].tokenImage}/>
             <div className="overlay"> 
               <p className="overlayName font-medium">{collector.fc_name}

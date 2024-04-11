@@ -26,7 +26,6 @@ h3{
 
 .collectionItem{
   padding: 10px 10px 10px 10px;
-  border: 1px solid black;
   color: #262229;
   cursor: pointer;
   overflow: hidden;
@@ -37,8 +36,6 @@ h3{
 }
 
 .collectionItem.active{
-  background-color: #262229;
-  color: #83E5EA;
   border-top: 4px solid #83E5EA;
   border-bottom: 4px solid #83E5EA;
 }
@@ -51,7 +48,7 @@ position: relative;
   position: absolute;
   bottom: 5px;
   left: 5px;
-  background-color: rgba($color:  #83E5EA, $alpha: 0.5);
+  background-color: rgba($color:  white, $alpha: 0.5);
 }
 
 .overlayImg{
@@ -63,7 +60,8 @@ position: relative;
 }
 
 .overlayName{
-  width: 70%;
+  color: #262229;
+  font-size: 0.7rem;
   padding-left: 5px;
   padding-right: 5px;
 }

@@ -179,18 +179,28 @@ const CollectionsComponent = () => {
   };
 
   const followFC_user = async (fid:number) => {
+    const neynar_apikey = process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
+
+    if (!neynar_apikey) {
+      console.error('API key is undefined');
+      return;
+    }
+    
     const options = {
+      method: 'POST',
       headers: {
         'accept': 'application/json',
-        'api_key': process.env.NEYNAR_API_KEY,
+        'api_key': neynar_apikey,
         'content-type': 'application/json'
       },
       body: JSON.stringify({signer_uuid: user.signerUuid, target_fids: [fid]})
     };
     console.log({...options});
     try {
-      const response = await axios.post('https://api.neynar.com/v2/farcaster/user/follow', options);
-      console.log(`response from axios call ${response.data}`); // Assuming you're interested in the response data
+      await fetch('https://api.neynar.com/v2/farcaster/user/follow', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
     } catch (error) {
       console.error(error);
     }

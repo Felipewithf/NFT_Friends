@@ -7,7 +7,7 @@ export const collectors_queenskings = [
     profileBio: "NYC based explorer, doctor, dog dad.\n\nFID 4324",
     nfts: [
       {
-        tokenImage: "ipfs://QmQ4b1AzfTdzD97bZ1sJuJBYT2eXPKLDHzotMZyRQnRrjk",
+        tokenImage: "https://ipfs.io/ipfs/QmQ4b1AzfTdzD97bZ1sJuJBYT2eXPKLDHzotMZyRQnRrjk",
         token_id: 2499,
       },
     ],
@@ -20,35 +20,35 @@ export const collectors_queenskings = [
     profileBio: "GP",
     nfts: [
       {
-        tokenImage: "ipfs://QmS7KkLAokWksCsxcXDYNEgGW68WApjEYvy8hEvpgAhdXH",
+        tokenImage: "https://ipfs.io/ipfs/QmS7KkLAokWksCsxcXDYNEgGW68WApjEYvy8hEvpgAhdXH",
         token_id: 6418,
       },
       {
-        tokenImage: "ipfs://Qmb82TP7tY6hKjxc8FZuaP9qp1CWuzFBz5CY4g6r5QQQHq",
+        tokenImage: "https://ipfs.io/ipfs/Qmb82TP7tY6hKjxc8FZuaP9qp1CWuzFBz5CY4g6r5QQQHq",
         token_id: 3632,
       },
       {
-        tokenImage: "ipfs://QmeMa1vDZzxzV5NteMHCnNqSWEZppEKh5AgThptH65rjCy",
+        tokenImage: "https://ipfs.io/ipfs/QmeMa1vDZzxzV5NteMHCnNqSWEZppEKh5AgThptH65rjCy",
         token_id: 127,
       },
       {
-        tokenImage: "ipfs://QmagQiGFKwJ4yLdTs3rwVfu2hSyJyjoRkYdemb2idB2Aug",
+        tokenImage: "https://ipfs.io/ipfs/QmagQiGFKwJ4yLdTs3rwVfu2hSyJyjoRkYdemb2idB2Aug",
         token_id: 3634,
       },
       {
-        tokenImage: "ipfs://QmV3CT25ASsbNeMqrdJt7nAgu7pbCvW993otE2hW2pKGvT",
+        tokenImage: "https://ipfs.io/ipfs/QmV3CT25ASsbNeMqrdJt7nAgu7pbCvW993otE2hW2pKGvT",
         token_id: 4138,
       },
       {
-        tokenImage: "ipfs://QmNZwCteGihdCbN4SPDG8PfLdy1iAWh3CHbHiYyWmmT8Si",
+        tokenImage: "https://ipfs.io/ipfs/QmNZwCteGihdCbN4SPDG8PfLdy1iAWh3CHbHiYyWmmT8Si",
         token_id: 1301,
       },
       {
-        tokenImage: "ipfs://QmRZ3RJbnyuRr9VpLJxV6D1mj5kpyE5qrX5d92jvGHP9oT",
+        tokenImage: "https://ipfs.io/ipfs/QmRZ3RJbnyuRr9VpLJxV6D1mj5kpyE5qrX5d92jvGHP9oT",
         token_id: 38,
       },
       {
-        tokenImage: "ipfs://QmPuHKZoYgpmqF9YVuTsKkVAErxZzrH4VuYtT3DV55vUJd",
+        tokenImage: "https://ipfs.io/ipfs/QmPuHKZoYgpmqF9YVuTsKkVAErxZzrH4VuYtT3DV55vUJd",
         token_id: 1747,
       },
     ],
@@ -62,11 +62,11 @@ export const collectors_queenskings = [
       "Crypto enthusiast/addict.  Chronic round tripper.  The harder you work, the luckier you get.  ",
     nfts: [
       {
-        tokenImage: "ipfs://QmVucsJoSmbZJh7YXKCFudQUPwpB6oao6NioVZfEcjUBKJ",
+        tokenImage: "https://ipfs.io/ipfs/QmVucsJoSmbZJh7YXKCFudQUPwpB6oao6NioVZfEcjUBKJ",
         token_id: 2292,
       },
       {
-        tokenImage: "ipfs://QmYNyYMWnSfou6Eur2votSwah8RNfs2Hjn6nQ29tJf9i4u",
+        tokenImage: "https://ipfs.io/ipfs/QmYNyYMWnSfou6Eur2votSwah8RNfs2Hjn6nQ29tJf9i4u",
         token_id: 3958,
       },
     ],
@@ -80,7 +80,7 @@ export const collectors_queenskings = [
       "COO @ Find Labs, Founder @ NonFunGerbils, Photographer, Web3 Astronaut,  Investor, NFTs, Maximalism Minimalist",
     nfts: [
       {
-        tokenImage: "ipfs://QmQEE9anG4NYgieFUfmk8CwxpGiPMaeeQvfrPMDsDihYRP",
+        tokenImage: "https://ipfs.io/ipfs/QmQEE9anG4NYgieFUfmk8CwxpGiPMaeeQvfrPMDsDihYRP",
         token_id: 1920,
       },
     ],
@@ -94,7 +94,7 @@ export const collectors_queenskings = [
       "Designer + dev. 🏗️ Trying new and fun ideas using the blockchain ecosystem",
     nfts: [
       {
-        tokenImage: "ipfs://QmUpKKMuz5tWFH7Kc5L4fT9G5zBZf319CJH1Pzb2ALpGDN",
+        tokenImage: "https://ipfs.io/ipfs/QmUpKKMuz5tWFH7Kc5L4fT9G5zBZf319CJH1Pzb2ALpGDN",
         token_id: 6125,
       },
     ],
@@ -107,7 +107,7 @@ export const collectors_queenskings = [
     profileBio: "",
     nfts: [
       {
-        tokenImage: "ipfs://QmSE2ceCmM2jgR6P1TJbNbBRVumkKxkpJaZAPrtX8QQx6o",
+        tokenImage: "https://ipfs.io/ipfs/QmSE2ceCmM2jgR6P1TJbNbBRVumkKxkpJaZAPrtX8QQx6o",
         token_id: 4564,
       },
     ],
@@ -120,11 +120,11 @@ export const collectors_queenskings = [
     profileBio: "Degen degenerative generous gen",
     nfts: [
       {
-        tokenImage: "ipfs://QmT5WWudXjAuNiqq3Eh2a7xRdJZBU3iMb9r9N6NADhQKxe",
+        tokenImage: "https://ipfs.io/ipfs/QmT5WWudXjAuNiqq3Eh2a7xRdJZBU3iMb9r9N6NADhQKxe",
         token_id: 6013,
       },
       {
-        tokenImage: "ipfs://QmddrRojjxPW5THpxTR4DWzKDsgNHMRYJSdB2EgWmJVaFr",
+        tokenImage: "https://ipfs.io/ipfs/QmddrRojjxPW5THpxTR4DWzKDsgNHMRYJSdB2EgWmJVaFr",
         token_id: 1984,
       },
     ],
@@ -137,7 +137,7 @@ export const collectors_queenskings = [
     profileBio: "Crypto is art, value, culture, finance, freedom, liberation",
     nfts: [
       {
-        tokenImage: "ipfs://QmaXAT5W8hJNHK9wC9vYY7tnjmktDY5zeAhzV6e3S2jBiD",
+        tokenImage: "https://ipfs.io/ipfs/QmaXAT5W8hJNHK9wC9vYY7tnjmktDY5zeAhzV6e3S2jBiD",
         token_id: 4865,
       },
     ],
@@ -150,7 +150,7 @@ export const collectors_queenskings = [
     profileBio: "May the Force Be with You!",
     nfts: [
       {
-        tokenImage: "ipfs://QmeHjmSfaG2E2JQhpB98CrfJvCjgszmeDMFeC5n7BfEVM1",
+        tokenImage: "https://ipfs.io/ipfs/QmeHjmSfaG2E2JQhpB98CrfJvCjgszmeDMFeC5n7BfEVM1",
         token_id: 6875,
       },
     ],
@@ -164,7 +164,7 @@ export const collectors_queenskings = [
       "husband & father, Ethereum enthusiastic, @CyborgDao @bottoDAO, DeFiLover, @ensdomains lover, waiting for web3 explosion",
     nfts: [
       {
-        tokenImage: "ipfs://QmZSAM2Km46k8hs1dMomN8TYLu472A9gSFuJoKuNuTw9ia",
+        tokenImage: "https://ipfs.io/ipfs/QmZSAM2Km46k8hs1dMomN8TYLu472A9gSFuJoKuNuTw9ia",
         token_id: 4304,
       },
     ],
@@ -177,7 +177,7 @@ export const collectors_queenskings = [
     profileBio: "Seize the Memes of Production",
     nfts: [
       {
-        tokenImage: "ipfs://QmU2wTiksny6yZKKvsLf3cnjNbNxe5q4ebCQtSKRx5g7EC",
+        tokenImage: "https://ipfs.io/ipfs/QmU2wTiksny6yZKKvsLf3cnjNbNxe5q4ebCQtSKRx5g7EC",
         token_id: 523,
       },
     ],
@@ -190,7 +190,7 @@ export const collectors_queenskings = [
     profileBio: "\nhttps://deca.art/BlueFlame",
     nfts: [
       {
-        tokenImage: "ipfs://QmZ4tq6t6EALyTZ7qiMjV9gBgHLi55SzXLiCdZo4xBrL3m",
+        tokenImage: "https://ipfs.io/ipfs/QmZ4tq6t6EALyTZ7qiMjV9gBgHLi55SzXLiCdZo4xBrL3m",
         token_id: 4677,
       },
     ],
@@ -203,15 +203,15 @@ export const collectors_queenskings = [
     profileBio: "Twitter : 0x541nt1",
     nfts: [
       {
-        tokenImage: "ipfs://QmW4uWbVpEGAeuQLCEv3zFc748ejpPRsqvRGJxgqEGNeRD",
+        tokenImage: "https://ipfs.io/ipfs/QmW4uWbVpEGAeuQLCEv3zFc748ejpPRsqvRGJxgqEGNeRD",
         token_id: 5999,
       },
       {
-        tokenImage: "ipfs://Qma9GN89fieHMFNsEkq6cggizYVxYheq6xVB423SLV71ZK",
+        tokenImage: "https://ipfs.io/ipfs/Qma9GN89fieHMFNsEkq6cggizYVxYheq6xVB423SLV71ZK",
         token_id: 1481,
       },
       {
-        tokenImage: "ipfs://QmSr5CVuYkzxHPW57K7p1N5GCcCLydcTuX24dGBmZRM7m4",
+        tokenImage: "https://ipfs.io/ipfs/QmSr5CVuYkzxHPW57K7p1N5GCcCLydcTuX24dGBmZRM7m4",
         token_id: 6900,
       },
     ],

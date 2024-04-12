@@ -34,3 +34,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## Bugs
+- Currently the app can only filter maximum of 200 FIDs, if the user is following more than 200 there is a chance that they might be recomeneded a friend that they already follow. proposed solution is to load all their followings at signin and store this in a localstorage.
+- If the user refreshes the page after they follow a new friend, the new friend will appear back in the UI (ony if the user refreshes) the reason for this is that there is a lag between the api we are using and the current state of farcaster, Propose solution is to store the friends FID in localstorage and update when there are changes in our app, we will only fetch from Farcaster once the user signout and signins back again.

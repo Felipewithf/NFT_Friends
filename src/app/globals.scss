@@ -23,6 +23,11 @@ h3{
   margin-right: 30px;
 }
 
+#userDetails-Shell{
+  border: 1px solid black;
+  width: 350px;
+  margin-left: 30px;
+}
 
 .collectionItem{
   padding: 10px 10px 10px 10px;
@@ -42,13 +47,38 @@ h3{
 
 .friendGridItem{
 position: relative;
+cursor: zoom-in;
+}
+
+.friendGridItem:hover > .overlayBtn{
+  display: block;
 }
 
 .overlay{
   position: absolute;
   bottom: 5px;
   left: 5px;
+  border-radius: 2px;
   background-color: rgba($color:  white, $alpha: 0.5);
+}
+
+.overlayBtn{
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgba($color:  #7F65AC, $alpha: 1.0);
+  box-shadow: 2px 2px black;
+  cursor: pointer;
+}
+
+.overlayBtn .followBtn{
+  color: white;
+  font-size: 0.8rem;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .overlayImg{
@@ -66,7 +96,7 @@ position: relative;
   padding-right: 5px;
 }
 
-.text-3xl{
+.text-3xl,.text-2xl,.text-1xl{
   color: #262229;
 }
 

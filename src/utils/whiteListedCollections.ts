@@ -1,16 +1,19 @@
 import {collectors_ghostbusters} from './snapshots/ghostbusters'
-import {collectors_queenskings} from './snapshots/QueensKingsFrozen'
+import {collectors_queenskings} from './snapshots/queenskings'
+import {collectors_voxels} from './snapshots/voxels'
+import {collectors_supergeishas} from './snapshots/supergeishas'
+import {collectors_tomsachs_stuff} from './snapshots/tomsachs_stuff'
 
 export const wlc=[
     {
         name:"Tom Sachs: Stuff",
         addy:"0xfa297f8a132811b5ed682bed0be035520db7f89b",
-        snapshot: collectors_ghostbusters,
+        snapshot: collectors_tomsachs_stuff,
     },
     {
         name:"CryptoVoxels Parcels",
         addy:"0x79986af15539de2db9a5086382daeda917a9cf0c",
-        snapshot: collectors_ghostbusters,
+        snapshot: collectors_voxels,
     },
     {
         name:"Queens+Kings by Hackatao (Frozen)",
@@ -20,7 +23,7 @@ export const wlc=[
     {
         name:"Super Geisha",
         addy:"0x2AFb30418504d3C6EcfA2cb40012804E52ced20a",
-        snapshot: collectors_ghostbusters,
+        snapshot: collectors_supergeishas,
     },
     {
         name:"Ghostbusters: Afterlife Collectibles",

@@ -72,23 +72,7 @@ const Home = () => {
             Lets find you some friends</p>
           <div className="flex justify-start pt-5" id="shellsHolder">
             <CollectionsComponent />
-            {/* <div className={styles.inputContainer}>
-              <Image
-                src={pfp}
-                width={40}
-                height={40}
-                alt="User Profile Picture"
-                className={`${styles.profilePic} rounded-full`}
-              />
-              <textarea
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className={styles.userInput}
-                placeholder="Say Something"
-                rows={5}
-              />
-            </div>
-            <Button onClick={handlePublishCast} title="Cast" /> */}
+            
           </div>
           </>
         ) : (

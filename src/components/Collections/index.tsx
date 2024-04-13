@@ -1,5 +1,13 @@
 "use client";
 
+import Image from "next/image";
+import styles from "./index.module.scss";
+import Button from "@/components/Button";
+
+import axios, { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
+
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import { useEffect, useState } from "react";
@@ -21,7 +29,44 @@ const CollectionsComponent = () => {
   const [holdingAddress, setHoldingAddress ] = useState<string>("");
   const [holdingIndex, setHoldingIndex] = useState<number>(-1);
 
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+
   const [selectedCollector, setSelectedCollector] = useState<any>(null); 
+
+
+  const [text, setText] = useState("");
+
+
+  async function handlePublishCast() {
+    const { signerUuid } = user;
+    try {
+      const {
+        data: { message },
+      } = await axios.post<{ message: string }>("/api/cast", {
+        signerUuid,
+        text,
+      });
+      toast(message, {
+        type: "success",
+        theme: "dark",
+        autoClose: 3000,
+        position: "bottom-right",
+        pauseOnHover: true,
+      });
+      setText("");
+    } catch (err) {
+      const { message } = (err as AxiosError).response?.data as ErrorRes;
+      toast(message, {
+        type: "error",
+        theme: "dark",
+        autoClose: 3000,
+        position: "bottom-right",
+        pauseOnHover: true,
+      });
+    }
+  }
+
+
 
   interface Collection {
     address: string;
@@ -111,6 +156,7 @@ const CollectionsComponent = () => {
 
   //everytime there is a change in the collection get different collectors
   useEffect(() => {
+    setSuccessModalVisible(true);
     getCollectors(holdingAddress, holdingIndex);
   }, [filterFIDs, holdingAddress]);
 
@@ -234,6 +280,35 @@ const CollectionsComponent = () => {
       {!selectedCollector && (
         <>
         </>
+      )}
+       {successModalVisible && (
+        <div className="modal">
+          <div className="modal-content">
+            {/* <span className="close" onClick={() => setSuccessModalVisible(false)}>&times;</span> */}
+            <p className="text-2xl">Follow operation successful!</p>
+            <div className={styles.inputContainer}>
+              {/* <Image
+                src={selectedCollector.profileImage}
+                width={40}
+                height={40}
+                alt="User Profile Picture"
+                className={`${styles.profilePic} rounded-full`}
+              /> */}
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className={styles.userInput}
+                placeholder="Say Something"
+                rows={5}
+              />
+            </div>
+            <div className="flex justify-end items-center">
+            <p className="text-1xl skpbtn" onClick={() => setSuccessModalVisible(false)}>Skip </p>
+            <Button onClick={handlePublishCast} title="Cast" />
+            </div>
+            
+          </div>
+        </div>
       )}
     </>
   );

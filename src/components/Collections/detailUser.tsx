@@ -5,6 +5,8 @@ interface DetailUserProps {
     collector: any; // Define the type of collector object
   }
 
+  
+
 const DetailUserComponent = (collector: DetailUserProps) =>{
 
     return (

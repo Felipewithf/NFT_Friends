@@ -7,6 +7,14 @@ import { init, useQuery } from "@airstack/airstack-react";
 init("17dd214bb19984a7c87007735b791c29e");
 
 
+export const shuffleArray = (array:any[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 export const verifyUser = async (signerUuid: string, fid: string) => {
   let _isVerifiedUser = false;
   try {

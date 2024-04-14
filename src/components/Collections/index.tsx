@@ -3,18 +3,17 @@
 import Image from "next/image";
 import styles from "./index.module.scss";
 import Button from "@/components/Button";
-
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { ErrorRes } from "@neynar/nodejs-sdk/build/neynar-api/v2";
-
+import { shuffleArray } from "@/utils/helpers";
 import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import { useEffect, useState } from "react";
 import { QUERY_WHITELISTED_COLLECTIONS, QUERY_WHO_I_FOLLOW} from "@/utils/queries";
 import { wlc } from "@/utils/whiteListedCollections"
 import DetailUserComponent from "./detailUser";
-
+import { useApp } from "@/Context/AppContext";
 import { init, useQuery } from "@airstack/airstack-react";
 
 
@@ -23,18 +22,33 @@ init("17dd214bb19984a7c87007735b791c29e");
 const CollectionsComponent = () => {
   const [user] = useLocalStorage<UserInfo>("user");
   const [collections, setCollections] = useState<any[]>([]);
+
   const [recomenededCollectors, setRecomenededCollectors] = useState<any[]>([]);
   const [activeCollectionIndex, setActiveCollectionIndex] = useState(-1); // Initialize with -1 indicating no active item
   const [filterFIDs, setFilterFIDs ] = useState<any[]>([]);
   const [holdingAddress, setHoldingAddress ] = useState<string>("");
   const [holdingIndex, setHoldingIndex] = useState<number>(-1);
-
+  const [holdingCollectionName, setHoldingCollectionName] = useState<string>("");
   const [successModalVisible, setSuccessModalVisible] = useState(false);
-
+  const [newFriendName, setNewFriendName] = useState<string>("");
   const [selectedCollector, setSelectedCollector] = useState<any>(null); 
-
-
+  const [randomization, setRandomization] = useState(false);
+  const { displayName, pfp } = useApp();
   const [text, setText] = useState("");
+
+
+  const castMessages = [
+    //`Sparking new connections through NFTs! following @${newFriendName} throught ${holdingCollectionName}`,
+    //`Exciting times in the NFT world! Easily connecting with fellow ${holdingCollectionName} collectors. @${newFriendName}`,
+    //`Using Farcaster + NFTs is helping our global community connect easily.${holdingCollectionName} @${newFriendName}`,
+    //`found @${newFriendName} using an app I am working to find friends throught NFTs secure, convenient and fun way!`,
+    `found @${newFriendName} throught ${holdingCollectionName}. Working on an app to find NFT Friends in a secure, convenient, and fun way!`
+    //`Leveraging platforms like NFT-FRIENDS.IO to forge meaningful connections in the NFT community. @${newFriendName}`,
+  ];
+  
+ const getCastMessage = (messagesList: string[]) => {
+    return messagesList[Math.floor(Math.random() * messagesList.length)];
+  };
 
 
   async function handlePublishCast() {
@@ -54,6 +68,7 @@ const CollectionsComponent = () => {
         pauseOnHover: true,
       });
       setText("");
+      setSuccessModalVisible(false);
     } catch (err) {
       const { message } = (err as AxiosError).response?.data as ErrorRes;
       toast(message, {
@@ -125,10 +140,14 @@ const CollectionsComponent = () => {
       const profileIdsToFilter = [user.fid, ...followingProfileIds];
       
       setFilterFIDs(profileIdsToFilter);
-      console.log(filterFIDs);
+      //console.log(filterFIDs);
     }
   },[data,followingData,followingLoading]);
 
+  //update the text message once new fiend is updated
+  useEffect(()=>{
+    setText(getCastMessage(castMessages));
+  },[newFriendName,holdingCollectionName])
 
   //clean the collections data once received and set the collections
   useEffect(() => {
@@ -154,11 +173,12 @@ const CollectionsComponent = () => {
     }
   }, [data]);
 
+
+
   //everytime there is a change in the collection get different collectors
   useEffect(() => {
-    setSuccessModalVisible(true);
     getCollectors(holdingAddress, holdingIndex);
-  }, [filterFIDs, holdingAddress]);
+  }, [filterFIDs, holdingAddress,randomization]);
 
   const getCollectors = (address: string, index: number) => {
 
@@ -169,21 +189,31 @@ const CollectionsComponent = () => {
     
     //get all the collectors from the whitelisted address collectors snapshot
     if (collectorsData ) {
+    let firstNineItems =[]
       let snapshotData = collectorsData.snapshot;
       //console.log(snapshotData);
       const filteredSnapshotData = snapshotData.filter((item) => !filterFIDs.includes(item.fid));
       //console.log(filteredSnapshotData);
-      //filter the snapshotData to remove the users that the user is already following
-      let firstNineItems = filteredSnapshotData.slice(0, 9);
-      //console.log(firstNineItems);
-      setRecomenededCollectors(firstNineItems);
+      if(randomization){
+        const shuffledSnapshotData = shuffleArray(filteredSnapshotData);
+        // Select the first nine items
+        firstNineItems = shuffledSnapshotData.slice(0, 9);
+        // Set the state with the randomized and filtered items
+        setRecomenededCollectors(firstNineItems);
+      }else{
+    //filter the snapshotData to remove the users that the user is already following
+        firstNineItems = filteredSnapshotData.slice(0, 9);
+        //console.log(firstNineItems);
+        setRecomenededCollectors(firstNineItems);
+      }
+      
     } else{
       return <p>Collectors Not Found..</p>;
     }
   };
 
   //logic to follow users
-  const followFC_user = async (fid:string) => {
+  const followFC_user = async (fid:string,fc_name:string) => {
     const neynar_apikey = process.env.NEXT_PUBLIC_NEYNAR_API_KEY;
     const fidNumber = parseInt(fid, 10);
     if (!neynar_apikey) {
@@ -203,11 +233,14 @@ const CollectionsComponent = () => {
     try {
       const response = await fetch('https://api.neynar.com/v2/farcaster/user/follow', options);
         const responseData = await response.json();
-        console.log(responseData); // Log the response data
+        //console.log(responseData); // Log the response data
         const updatedFilterFIDs = [fid, ...filterFIDs ];
-        console.log(`theactiveCollectionIndexis: ${activeCollectionIndex}`)
+        //console.log(`theactiveCollectionIndexis: ${activeCollectionIndex}`);
         setFilterFIDs(updatedFilterFIDs);
+        setNewFriendName(fc_name);
         setSelectedCollector("");
+        //activate modal for casting
+        setSuccessModalVisible(true);
         //console.log(updatedFilterFIDs); // Log the updated array
     } catch (error) {
       console.error(error);
@@ -232,25 +265,18 @@ const CollectionsComponent = () => {
     return <p className="text-3xl">Data is empty...</p>;
   }
 
-  // console.log(data);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setCollections(data?.Ethereum?.TokenBalances?.TokenBalance || []);
-  //   }
-  // }, [data]);
-
   return (
     <>
     <div id="collection-Shell">
       <ul className="collectionList">
        {collections.map((collection, index) => (
-         <li key={index} className={`collectionItem ${index === activeCollectionIndex ? 'active' : ''}`}  onClick={() => (setHoldingAddress(collection.address),setHoldingIndex(index))}>{collection.name}</li>
+         <li key={index} className={`collectionItem ${index === activeCollectionIndex ? 'active' : ''}`}  onClick={() => (setHoldingAddress(collection.address),setHoldingIndex(index),setHoldingCollectionName(collection.name),setRandomization(false))}>{collection.name}</li>
       ))}
       </ul>
     </div>
     <div id="friendGrid-Shell" className="flex justify-center items-center">
       {recomenededCollectors.length > 0 ? (
+        <>
         <div className="friendGridlList grid grid-cols-3 gap-0">
         {recomenededCollectors.map((collector, index) => (
           <div key={index} className="friendGridItem" onClick={() => handleCollectorItemClick(collector)}>
@@ -259,13 +285,24 @@ const CollectionsComponent = () => {
               <p className="overlayName font-medium">{collector.fc_name}
               </p>
             </div>
-            <div className="overlayBtn " onClick={()=> followFC_user(collector.fid)}>
+            <div className="overlayBtn " onClick={()=> followFC_user(collector.fid,collector.fc_name)}>
               <p className="font-medium followBtn">FOLLOW
               </p>
             </div>
           </div>
         ))}
         </div>
+        <div>
+            <p id="shakeBtn" className="text-1xl" onClick={() => {if (!randomization) {
+                console.log('fired becasue is false, and now is true');
+                                        setRandomization(true);
+                                        } else {
+                                            console.log('fired becasue is true, keep it true and fire function');
+                                        getCollectors(holdingAddress, holdingIndex);
+                                        }
+            }}>Shake Collectors</p>
+        </div>
+        </>
       ):(
         <p className="text-3xl"> ↖︎ Select a Collection</p>
       )}
@@ -285,15 +322,17 @@ const CollectionsComponent = () => {
         <div className="modal">
           <div className="modal-content">
             {/* <span className="close" onClick={() => setSuccessModalVisible(false)}>&times;</span> */}
-            <p className="text-2xl">Follow operation successful!</p>
+            <p className="text-2xl">Following <span className="font-medium">{newFriendName}</span> on Farcaster!</p>
+            <br />
+            <p className="text-1xl">let your new friend know how you found them</p>
             <div className={styles.inputContainer}>
-              {/* <Image
-                src={selectedCollector.profileImage}
+              <Image
+                src={pfp ?? ""}
                 width={40}
                 height={40}
                 alt="User Profile Picture"
                 className={`${styles.profilePic} rounded-full`}
-              /> */}
+              />
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}

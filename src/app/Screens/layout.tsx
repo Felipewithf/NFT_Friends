@@ -7,20 +7,25 @@ import useLocalStorage from "@/hooks/use-local-storage-state";
 import { UserInfo } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { wlc } from "@/utils/whiteListedCollections";
 
 interface Props {
   children: ReactNode;
 }
 
 const ScreenLayout = ({ children }: Props) => {
+  const { setScreen } = useApp();
   const { screen } = useApp();
   const [_, _1, removeItem] = useLocalStorage<UserInfo>("user");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleSignout = () => {
     removeItem();
     window.location.reload();
   };
+
+  
 
   return (
     <div className="flex flex-col min-h-screen text-white">
@@ -33,18 +38,63 @@ const ScreenLayout = ({ children }: Props) => {
             alt="nft friends Logo"
           />
         </div>
+        
         {screen !== ScreenState.Signin && (
           <div className="flex items-center">
             <Button
               onClick={handleSignout}
-              title="Sign Out"
+              title="Disconnect"
               rightIcon={<Signout height="20px" width="20px" />}
             />
           </div>
         )}
       </header>
       {children}
-      <footer></footer>
+      <footer className="flex justify-around">
+        <p className="text-1xl hover:underline" onClick={() => setModalVisible(true)}>📋 Whitelisted Collections</p>
+        <p className="text-1xl hover:underline">
+        <a
+          href="https://warpcast.com/felipewithf.eth"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+         by Felipewithf.eth
+        </a></p>
+      </footer>
+      {modalVisible && (
+        <div className="modal-whitelist">
+          <div className="modal-content-whitelist">
+          <p className="text-1xl skpbtn font-medium close" onClick={() => setModalVisible(false)}>Close</p>
+          < br/>
+            <p className="text-2xl">Collections Whitelisted</p>
+            <p className="text-1xl">DM @felipewithf on Farcaster to add a collection to the network</p>
+            <div className="flex justify-center items-center">
+              <table>
+                <tr>
+                  <th>
+                    Collection Name
+                  </th>
+                  <th>
+                    Snapshot Date
+                  </th>
+                </tr>
+                {wlc.map((collection,index)=>(
+                  <tr key={index}>
+                  <td>
+                    {collection.name}
+                  </td>
+                  <td>
+                    {collection.date}
+                  </td>
+                </tr>
+                ))}
+                
+              </table>
+            </div>
+            
+          </div>
+        </div>
+      )}
     </div>
   );
 };

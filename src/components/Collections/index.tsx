@@ -32,7 +32,10 @@ const CollectionsComponent = () => {
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [newFriendName, setNewFriendName] = useState<string>("");
   const [selectedCollector, setSelectedCollector] = useState<any>(null); 
+
   const [randomization, setRandomization] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
+  
   const { displayName, pfp } = useApp();
   const [text, setText] = useState("");
 
@@ -181,7 +184,7 @@ const CollectionsComponent = () => {
   }, [filterFIDs, holdingAddress,randomization]);
 
   const getCollectors = (address: string, index: number) => {
-
+    setSelectedCollector("");
     setActiveCollectionIndex(index === activeCollectionIndex ? activeCollectionIndex : index);
 
     //select the collection fom the Whitelist object
@@ -252,6 +255,12 @@ const CollectionsComponent = () => {
     setSelectedCollector(collector); // Store the selected collector in state
   };
 
+  const toggleShakeAnimation = () => {
+    setSelectedCollector("");
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 2000); // Reset shaking after 500ms
+  };
+
 
   if (loading) {
     return <p className="text-3xl">Loading...</p>;
@@ -277,10 +286,14 @@ const CollectionsComponent = () => {
     <div id="friendGrid-Shell" className="flex justify-center items-center">
       {recomenededCollectors.length > 0 ? (
         <>
-        <div className="friendGridlList grid grid-cols-3 gap-0">
+        <div className={`friendGridlList grid grid-cols-3 gap-0 ${isShaking ? 'shake-animation' : ''}`}>
         {recomenededCollectors.map((collector, index) => (
           <div key={index} className="friendGridItem" onClick={() => handleCollectorItemClick(collector)}>
-            <img src={collector.nfts[0].tokenImage}/>
+             {collector.nfts[0].tokenImage ? (
+                <img src={collector.nfts[0].tokenImage} onError={(e) => (e.target as HTMLImageElement).src = '/default_image.png'} />
+              ) : (
+                <img src="/default_image.png" />
+              )}
             <div className="overlay"> 
               <p className="overlayName font-medium">{collector.fc_name}
               </p>
@@ -293,11 +306,11 @@ const CollectionsComponent = () => {
         ))}
         </div>
         <div>
-            <p id="shakeBtn" className="text-1xl" onClick={() => {if (!randomization) {
-                console.log('fired becasue is false, and now is true');
+            <p id="shakeBtn" className="text-1xl" onClick={() => {
+                                        toggleShakeAnimation(); 
+                                        if (!randomization) {
                                         setRandomization(true);
                                         } else {
-                                            console.log('fired becasue is true, keep it true and fire function');
                                         getCollectors(holdingAddress, holdingIndex);
                                         }
             }}>Shake Collectors</p>

@@ -40,7 +40,7 @@ const Home = () => {
                 <span className="font-medium">{displayName}</span>
               )}
               ... 👋
-            Lets find you some friends</p>
+            Lets find NFT friends in Farcaster</p>
           <div className="flex justify-start pt-5" id="shellsHolder">
             <CollectionsComponent />
             

@@ -313,7 +313,7 @@ const CollectionsComponent = () => {
                                         } else {
                                         getCollectors(holdingAddress, holdingIndex);
                                         }
-            }}>Shake Collectors</p>
+            }}>SHAKE</p>
         </div>
         </>
       ):(

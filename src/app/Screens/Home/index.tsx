@@ -41,7 +41,7 @@ const Home = () => {
               )}
               ... 👋
             Lets find NFT friends in Farcaster</p>
-          <div className="flex justify-start pt-5" id="shellsHolder">
+          <div className="pt-5" id="shellsHolder">
             <CollectionsComponent />
             
           </div>

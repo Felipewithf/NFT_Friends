@@ -29,7 +29,7 @@ const ScreenLayout = ({ children }: Props) => {
 
   return (
     <div className="flex flex-col min-h-screen text-white">
-      <header className="flex justify-between items-center p-5">
+      <header className="">
         <div className="flex items-center">
           <Image
             src="/logos/nftfriends.svg"
@@ -64,11 +64,11 @@ const ScreenLayout = ({ children }: Props) => {
       {modalVisible && (
         <div className="modal-whitelist">
           <div className="modal-content-whitelist">
-          <p className="text-1xl skpbtn font-medium close" onClick={() => setModalVisible(false)}>Close</p>
+          <p className="text-1xl closebtn font-medium close" onClick={() => setModalVisible(false)}>Close</p>
           < br/>
             <p className="text-2xl">Collections Whitelisted</p>
             <p className="text-1xl">DM @felipewithf on Farcaster to add a collection to the network</p>
-            <div className="flex justify-center items-center">
+            <div id="whitelist-holder" className="">
               <table>
                 <tr>
                   <th>

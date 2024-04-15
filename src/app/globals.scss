@@ -14,8 +14,18 @@ h3{
   color: #262229;
 }
 
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 30px;
+}
+
 #shellsHolder{
-  width: 90%;
+  display: flex;
+  justify-content: start; 
+  width: 95%;
 }
 
 #collection-Shell{
@@ -157,12 +167,21 @@ cursor: zoom-in;
 #shakeBtn{
   position: absolute;
   width: 100px;
-  height: 50px;
-  background-color: #7F65AC;
+  height: 40px;
+  color: #83E5EA;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.6rem;
+  background-color: #23223A;
   bottom:-70px;
   transform: translateX(-50%);
   left: 50%;
 }
+
+#shakeBtn:hover{
+  cursor: pointer;
+}
+
 
 @keyframes shake {
   0% { transform: rotate(0deg); opacity: 0.5;}
@@ -208,6 +227,11 @@ cursor: zoom-in;
 
 .skpbtn{
   padding-right: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.closebtn{
   text-decoration: underline;
   cursor: pointer;
 }
@@ -271,12 +295,20 @@ td{
   border-radius: 10px;
   min-width: 500px;
   min-height: 300px;
-  margin: 100px auto;
+  margin: 10% auto;
   padding: 20px 10px 10px ;
   width: 80%;
-  height: 90%;
+  height: 88%;
   text-align: center;
   animation: slideIn 0.3s ease-out;
+}
+
+#whitelist-holder{
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  overflow: scroll;
+  height: 80%;
 }
 
 .modal-conten-whitelist .close{
@@ -294,3 +326,121 @@ td{
       transform: translateY(0%);
     }
   }
+
+ /* --------- ---------------------- ---------  */
+/* --------- SMALL SCREEN BELOW 992 ---------  */
+/* --------- ---------------------- ---------  */
+
+@media (max-width: 992px) {
+
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+
+
+  #shellsHolder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    width: 95%;
+  }
+
+  #collection-Shell{
+    width: 90%;
+    margin-right: 6px;
+    margin-left: 6px;
+    height: 200px;
+    border-top: 1px solid #23223A;
+    border-bottom: 1px solid #23223A;
+    overflow: scroll;
+    margin-bottom: 80px;
+    margin-top: 50px;
+  }
+
+  #friendGrid-Shell {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#shakeBtn {
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  color: #83E5EA;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.3rem;
+  background-color: #23223A;
+  top: -40px;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+#userDetails-Shell {
+  width: 90%;
+  height: fit-content;
+  margin-left: 6px;
+  margin-right: 6px;
+  margin-bottom: 80px;
+  margin-top: 30px;
+  overflow: scroll;
+  border-top: 4px solid #83E5EA;
+}
+
+.text-3xl{
+  text-align: center;
+}
+
+.modal-content-whitelist {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  min-width: 100%;
+  min-height: 70%;
+  margin: 100px auto;
+  padding: 20px 10px 10px;
+  width: 80%;
+  height: 90%;
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+table{
+  flex: 1;
+}
+
+th:first-child{
+  width: 70%;
+  padding-left: 10px;
+}
+
+}
+
+
+/* --------- ---------------------- ---------  */
+/* --------- MOBILE SCREEN BELOW 768 --------  */
+/* ---------  --------------------- ---------  */
+@media (max-width: 768px) {
+
+}
+
+
+/* --------- ---------------------- ---------  */
+/* --------- MOBILE SCREEN BELOW 540 --------  */
+/* ---------  --------------------- ---------  */
+@media (max-width: 540px) {
+
+
+  th:first-child{
+    width: 60%;
+  }
+  
+
+}

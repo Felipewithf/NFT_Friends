@@ -45,7 +45,8 @@ const CollectionsComponent = () => {
     //`Exciting times in the NFT world! Easily connecting with fellow ${holdingCollectionName} collectors. @${newFriendName}`,
     //`Using Farcaster + NFTs is helping our global community connect easily.${holdingCollectionName} @${newFriendName}`,
     //`found @${newFriendName} using an app I am working to find friends throught NFTs secure, convenient and fun way!`,
-    `found @${newFriendName} throught ${holdingCollectionName}. Working on an app to find NFT Friends in a secure, convenient, and fun way!`
+    `Utilizing nftfriends.network , I found @${newFriendName} through our shared appreciation for the ${holdingCollectionName} NFT collection`,
+    //`found @${newFriendName} throught ${holdingCollectionName} NFTs. Finding NFT Friends in a secure, convenient, and fun way! nftfriends.network`
     //`Leveraging platforms like NFT-FRIENDS.IO to forge meaningful connections in the NFT community. @${newFriendName}`,
   ];
   
@@ -334,10 +335,9 @@ const CollectionsComponent = () => {
        {successModalVisible && (
         <div className="modal">
           <div className="modal-content">
-            {/* <span className="close" onClick={() => setSuccessModalVisible(false)}>&times;</span> */}
-            <p className="text-2xl">Following <span className="font-medium">{newFriendName}</span> on Farcaster!</p>
-            <br />
-            <p className="text-1xl">let your new friend know how you found them</p>
+            
+            <p className="text-2xl"><span className="font-medium">{newFriendName}</span> 🎊👏👏👏🎊</p>
+            <h1>Following Successfully!</h1>
             <div className={styles.inputContainer}>
               <Image
                 src={pfp ?? ""}
@@ -354,8 +354,8 @@ const CollectionsComponent = () => {
                 rows={5}
               />
             </div>
-            <div className="flex justify-end items-center">
-            <p className="text-1xl skpbtn" onClick={() => setSuccessModalVisible(false)}>Skip </p>
+            <div className="flex justify-center items-center">
+            <p className="text-1xl skpbtn" onClick={() => setSuccessModalVisible(false)}>Skip Announcement</p>
             <Button onClick={handlePublishCast} title="Cast" />
             </div>
             

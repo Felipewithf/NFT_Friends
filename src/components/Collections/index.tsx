@@ -336,7 +336,7 @@ const CollectionsComponent = () => {
         <div className="modal">
           <div className="modal-content">
             
-            <p className="text-2xl"><span className="font-medium">{newFriendName}</span> 🎊👏👏👏🎊</p>
+            <p className="text-2xl">🎊👏<span className="font-medium">{newFriendName}</span> 👏🎊</p>
             <h1>Following Successfully!</h1>
             <div className={styles.inputContainer}>
               <Image

@@ -107,9 +107,10 @@ const Signin = () => {
       <main className="flex-grow flex flex-col items-center justify-center">
         <div className="mx-5 flex flex-col items-center justify-center">
         <h3 className="text-4xl font-extralight mb-4">
-            {isClient && ("Find your friends in Farcaster")}
+            {isClient && ("Find NFT friends in Farcaster")}
           </h3>
           <img src="hero.png" width={600}/>
+          <h2 className="text-3xl"> Secure | Efficient | Enjoyable</h2>
           
 
           {getButton()}

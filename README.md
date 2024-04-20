@@ -56,7 +56,10 @@ User needs to verify their wallet with Farcaster, then it can log into nftfriend
 
 # Screenshots
 
+![Homepage](https://github.com/Felipewithf/NFT_Friends/blob/main/public/homepage.png)
 
+On the collections UI to the left you can select the collections you want, in the center you are giving 9 collectors and selection one will give you their farcaster information to the right, a follow button will be shown on hover that will follow automatically on farcaster and give the option to cast.
+![collections UI](https://github.com/Felipewithf/NFT_Friends/blob/main/public/collections.png)
 
 ## Current Limitations
 - Currently the app can only filter maximum of 200 FIDs, if the user is following more than 200 there is a chance that they might be recomeneded a friend that they already follow. proposed solution is to load all their followings at signin and store this in a localstorage.

@@ -35,7 +35,30 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Purpose
 
-## Bugs
+# Introduction
+Community is a powerful attribute of NFTs but is also taken advantage from scammers, currently if you want to find NFT friends that share similar collections of yours you have to do a lot of unsafe steps:
+- find discord server ⚠️
+- connect wallet with 3rd party apps ⚠️
+- find gated channels to follow other members
+- click social media links ⚠️
+
+You can see how unsecure and inconvenent this is, specially that if you want to do this for another collection you have to do all the steps all over again.
+
+# Objective
+
+By integrating the Farcaster protocol into existing workflows, the aim is to establish a more secure and seamless environment for users to connect and build relationships within the blockchain ecosystem.
+
+# Workflow
+
+User needs to verify their wallet with Farcaster, then it can log into nftfriends.network and connect using neynar authenthication, and thats it! User now have access to collections and farcater users share their similar NFT collections, ( only collections that have been whitelisted will appear, to decrease the spam NFT collections )
+
+# Screenshots
+
+
+
+## Current Limitations
 - Currently the app can only filter maximum of 200 FIDs, if the user is following more than 200 there is a chance that they might be recomeneded a friend that they already follow. proposed solution is to load all their followings at signin and store this in a localstorage.
 - If the user refreshes the page after they follow a new friend, the new friend will appear back in the UI (ony if the user refreshes) the reason for this is that there is a lag between the api we are using and the current state of farcaster, Propose solution is to store the friends FID in localstorage and update when there are changes in our app, we will only fetch from Farcaster once the user signout and signins back again.
+- snapshot of collections have been created instead of fetching data using apis, to decreate the speed and increase the experience, also could potentially add up to a lot of api calls and become expensive for this proof of idea. hence snapshots where use instead.
